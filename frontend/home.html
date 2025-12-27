@@ -153,6 +153,17 @@
             font-size: 13px;
             color: #555;
         }
+        .main{
+            display: flex;
+            gap:20px
+        }
+          @keyframes spin {
+          from { transform: rotateY(0deg); }
+        to { transform: rotateY(360deg); }
+    }
+
+    /* Apply the animation to the card class */
+ 
     </style>
 </head>
 <body>
@@ -162,9 +173,11 @@
     <div class="pokeball"></div>
     <div class="pokeball"></div>
     <div class="pokeball"></div>
-
+    <div class="main">
+        
     <div class="card">
         <h1>Who's that Pokémon?</h1>
+      
         <div class="divider"></div>
 
         <form onsubmit="handleSubmit(event)">
@@ -172,13 +185,19 @@
             <button type="submit">Who's that Pokémon?</button>
         </form>
 
-        <div id="preview">
-            <img id="image" src="demo.jpg" alt="Preview" >
-        </div>
-
+       
+       
         <div class="hint">Upload a Pokémon image 🔍</div>
     </div>
-
+     <div class="card" id="result-div">
+       
+         <div id="preview">
+            <img id="image" src="demo.jpg" alt="Preview" >
+            
+        </div>
+        <p>It's pikachu</p>
+    </div>
+</div>
     <script>
         function handleSubmit(event) {
             event.preventDefault();
@@ -193,7 +212,14 @@
                 img.src = reader.result;
                 img.style.display = "block";
             };
-        }
+            const resultDiv = document.getElementById('result-div');
+
+
+        resultDiv.style.animation = "spin 2s linear infinite";
+        setTimeout(() => { 
+            resultDiv.style.animation = "none"; 
+        }, 4000);
+                }
     </script>
 
 </body>
