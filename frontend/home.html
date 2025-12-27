@@ -195,6 +195,7 @@
             <img id="image" src="demo.jpg" alt="Preview" >
             
         </div>
+        <audio id="result-audio" autoplay></audio>
         <p>It's pikachu</p>
     </div>
 </div>
@@ -219,7 +220,18 @@
         setTimeout(() => { 
             resultDiv.style.animation = "none"; 
         }, 4000);
+        document.getElementById("result-audio").src = "whos-that-pokemon_.mp3";
+        
+        // document.getElementById("result-audio").play();
+        // speakPokemon('its charmander');
                 }
+                function speakPokemon(name) {
+    const utterance = new SpeechSynthesisUtterance(name);
+    utterance.rate = 0.9;
+    utterance.pitch = 1.1;
+    speechSynthesis.speak(utterance);
+}
+
     </script>
 
 </body>
