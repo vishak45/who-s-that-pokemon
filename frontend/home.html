@@ -1,238 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Upload</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who's That Pokémon?</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, #ff3d3d 50%, #ffffff 50%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+.pokeball {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, red 50%, white 50%);
+    border: 4px solid black;
+    animation: float 8s linear infinite;
+    opacity: 0.7;
+}
+.pokeball::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: black;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.pokeball::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-120vh) rotate(360deg); }
+}
+.pokeball:nth-child(1){ left:10%; animation-duration:10s; }
+.pokeball:nth-child(2){ left:30%; animation-duration:14s; width:40px;height:40px; }
+.pokeball:nth-child(3){ left:60%; animation-duration:12s; }
+.pokeball:nth-child(4){ left:80%; animation-duration:16s; width:35px;height:35px; }
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    background: white;
+    padding: 28px 32px;
+    width: 350px;
+    max-width: 350px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    transition: background-color 0.5s ease;
+}
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(180deg, #ff3d3d 50%, #ffffff 50%);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.card h1 {
+    color: #ff3d3d;
+    margin-bottom: 10px;
+}
+.divider {
+    height: 4px;
+    width: 60px;
+    background: black;
+    margin: 10px auto 20px;
+    border-radius: 10px;
+}
 
-        /* Floating Pokéballs */
-        .pokeball {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(to bottom, red 50%, white 50%);
-            border: 4px solid black;
-            animation: float 8s linear infinite;
-            opacity: 0.7;
-        }
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px dashed #ff3d3d;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
 
-        .pokeball::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background: black;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+button {
+    width: 100%;
+    background: linear-gradient(to right, red, #cc0000);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
 
-        .pokeball::after {
-            content: "";
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: white;
-            border: 3px solid black;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+#preview {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+#preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) contrast(1.2);
+    transition: filter 1s ease, transform 1s ease;
+}
+#preview img.reveal {
+    filter: brightness(1) contrast(1);
+}
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-120vh) rotate(360deg);
-            }
-        }
+#res-text {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateY(10px);
+    font-weight: 600;
+    font-size: 20px;
+}
+#res-text.show {
+    opacity: 1;
+    transform: translateY(0);
+    color: rgb(255, 1, 1);
+   
+}
+.top-3-results {
+width: 100%;
 
-        .pokeball:nth-child(1) { left: 10%; animation-duration: 10s; }
-        .pokeball:nth-child(2) { left: 30%; animation-duration: 14s; width: 40px; height: 40px; }
-        .pokeball:nth-child(3) { left: 60%; animation-duration: 12s; }
-        .pokeball:nth-child(4) { left: 80%; animation-duration: 16s; width: 35px; height: 35px; }
+padding: 10px;
 
-        /* Main card */
-        .card {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 10;
-            background: white;
-            padding: 28px 32px;
-            width: 350px;
-            max-width: 350px;
-            border-radius: 18px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-        }
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 20px;
+display: none;
+}
 
-        .card h1 {
-            color: #ff3d3d;
-            margin-bottom: 10px;
-        }
 
-        .divider {
-            height: 4px;
-            width: 60px;
-            background: black;
-            margin: 10px auto 20px;
-            border-radius: 10px;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: 2px dashed #ff3d3d;
-            margin-bottom: 15px;
-            cursor: pointer;
-        }
-
-        button {
-            width: 100%;
-            background: linear-gradient(to right, red, #cc0000);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        #preview {
-            
-            width: 200px;
-            height: 200px;
-            max-height: 200px;
-            margin-top: 20px;
-            border-radius: 14px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-         
-            overflow: hidden;
-             object-fit: contain;
-        }
-        #preview img {
-           
-            width: 100%;
-            height: 100%;
-           
-           
-        }
-
-        .hint {
-            margin-top: 12px;
-            font-size: 13px;
-            color: #555;
-        }
-        .main{
-            display: flex;
-            gap:20px
-        }
-          @keyframes spin {
-          from { transform: rotateY(0deg); }
-        to { transform: rotateY(360deg); }
-    }
-
-    /* Apply the animation to the card class */
- 
-    </style>
+@keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+.spin { animation: spin 2s linear infinite; }
+</style>
 </head>
 <body>
 
-    <!-- Animated Pokéballs -->
-    <div class="pokeball"></div>
-    <div class="pokeball"></div>
-    <div class="pokeball"></div>
-    <div class="pokeball"></div>
-    <div class="main">
-        
+<!-- Floating Pokéballs -->
+<div class="pokeball"></div>
+<div class="pokeball"></div>
+<div class="pokeball"></div>
+<div class="pokeball"></div>
+<div class="top-main">
+<div class="main" style="display:flex; gap:20px;">
     <div class="card">
-        <h1>Who's that Pokémon?</h1>
-      
-        <div class="divider"></div>
+       
+        <h1>Who's that Pokémon?</h1>
+        <p style="color: #555; font-size: 14px; font-style: italic; text-align: center; margin-top: 10px;">
+    Note: Gen-1 Pokémon are used for training
+</p>
 
+        <div class="divider"></div>
         <form onsubmit="handleSubmit(event)">
             <input type="file" accept="image/*" id="file">
-            <button type="submit">Who's that Pokémon?</button>
+            <button type="submit">Who's that Pokémon?</button>
         </form>
-
-       
-       
         <div class="hint">Upload a Pokémon image 🔍</div>
     </div>
-     <div class="card" id="result-div">
-       
-         <div id="preview">
-            <img id="image" src="demo.jpg" alt="Preview" >
-            
+
+    <div class="card" id="result-div">
+        <div id="preview">
+            <img id="image" src="OIP.jpg" alt="Preview">
+           
         </div>
-        <audio id="result-audio" autoplay></audio>
-        <p>It's pikachu</p>
+         <p id="result-p-text">The result will appear here</p>
+        <audio id="result-audio"></audio>
+        <p id="res-text"></p>
+    </div>
+    </div>
+    <div class="top-3-results" id="top-3-results">
+      
     </div>
 </div>
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById('file');
-            const file = fileInput.files[0];
-            if (!file) return;
 
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const img = document.getElementById('image');
-                img.src = reader.result;
-                img.style.display = "block";
-            };
+
+<script>
+function handleSubmit(event) {
+    event.preventDefault();
+    document.getElementById('res-text').classList.remove("show");
+    document.getElementById("top-3-results").style.display = "none";
+    
+    const fileInput = document.getElementById('file');
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+        const base64data = reader.result.split(',')[1];
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/guess', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: base64data })
+            });
+            const data = await response.json();
+            console.log(data);
+
+            document.getElementById("result-p-text").style.display = "none";
+            const img = document.getElementById('image');
+           
+            img.classList.remove("reveal");
+             img.src = reader.result;
+            
+            const audio = document.getElementById("result-audio");
+            audio.src = "whos-that-pokemon_.mp3";
+            audio.play();
+
             const resultDiv = document.getElementById('result-div');
+            resultDiv.classList.add("spin"); // spin card
+            const top3Div = document.getElementsByClassName("top-3-results")[0];
+           
+            audio.onended = () => {
+                resultDiv.classList.remove("spin"); 
+                img.classList.add("reveal");       
+                const resText = document.getElementById("res-text");
+                resText.innerHTML = `It's ${data.name}!`;
+                resText.classList.add("show");
+                speakPokemon(data.name);
+                spawnPokeballs(); 
+                 top3Div.style.display = "flex";
+
+                 top3Div.innerHTML = "";
+                 const p = document.createElement("p");
+                 p.innerHTML = `Top 3:`;
+                 top3Div.appendChild(p);
+            const top3 = data.top3;
+            for (let i = 0; i < top3.length; i++) {
+                const p = document.createElement("p");
+                p.innerHTML = `${i+1}. ${top3[i]}`;
+                top3Div.appendChild(p);
+            }
+            };
+
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    reader.readAsDataURL(file);
+}
 
 
-        resultDiv.style.animation = "spin 2s linear infinite";
-        setTimeout(() => { 
-            resultDiv.style.animation = "none"; 
-        }, 4000);
-        document.getElementById("result-audio").src = "whos-that-pokemon_.mp3";
-        
-        // document.getElementById("result-audio").play();
-        // speakPokemon('its charmander');
-                }
-                function speakPokemon(name) {
-    const utterance = new SpeechSynthesisUtterance(name);
-    utterance.rate = 0.9;
-    utterance.pitch = 1.1;
+function speakPokemon(name) {
+    const utterance = new SpeechSynthesisUtterance(`It's  ${name}!`);
+    utterance.rate = 0.75;
+    utterance.pitch = 0.6;
     speechSynthesis.speak(utterance);
 }
 
-    </script>
+
+function spawnPokeballs() {
+    for (let i = 0; i < 5; i++) {
+        const p = document.createElement("div");
+        p.classList.add("pokeball");
+        p.style.left = Math.random() * 80 + "%";
+        p.style.animationDuration = (2 + Math.random() * 2) + "s";
+        document.body.appendChild(p);
+        setTimeout(() => document.body.removeChild(p), 2000);
+    }
+}
+</script>
 
 </body>
 </html>

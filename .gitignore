@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# TensorFlow / Keras models
+*.h5
+*.keras
+*.model
+
+# Pokémon project specific
+pokemon_classifier.keras
+class_labels.json
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
