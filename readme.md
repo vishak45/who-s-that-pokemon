@@ -31,6 +31,8 @@ A fun Pokémon image classifier inspired by the classic "Who's That Pokémon?" s
 
 ![Pokémon Reveal Demo](op.gif)
 
+*Note: The GIF shows the visual reveal. The actual demo also includes the "Who's That Pokémon?" audio and text-to-speech for the Pokémon name 😜.*
+
 
 ## Installation
 
