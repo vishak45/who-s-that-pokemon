@@ -60,7 +60,7 @@ who-s-that-pokemon/
 ├─ .gitignore          # Ignored files (models, JSON, env, etc.)
 └─ README.md           # This file
 ```
-Notes
+## Notes:
 The model is trained on Gen-1 Pokémon only.
 
 Models (.keras files) and JSON class label files are not included in the repo.
