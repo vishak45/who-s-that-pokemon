@@ -27,6 +27,11 @@ A fun Pokémon image classifier inspired by the classic "Who's That Pokémon?" s
 
 ---
 
+## Output
+
+![Pokémon Reveal Demo](op.gif)
+
+
 ## Installation
 
 1. **Clone the repo**  
