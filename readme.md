@@ -32,9 +32,8 @@ A fun Pokémon image classifier inspired by the classic "Who's That Pokémon?" s
 1. **Clone the repo**  
 
 ```bash
-git clone https://github.com/yourusername/pokemon-finder.git
-cd pokemon-finder
-Set up Python environment
+git clone https://github.com/vishak45/who-s-that-pokemon
+cd who-s-that-pokemon
 ```
 ```bash
 Copy code
@@ -43,7 +42,6 @@ pip install -r requirements.txt
 Start the backend server
 
 ```bash
-Copy code
 python server.py
 ```
 Open frontend/home.html in a browser.
@@ -52,7 +50,7 @@ Project Structure
 graphql
 Copy code
 ```
-pokemon-finder/
+who-s-that-pokemon/
 │
 ├─ frontend/           # HTML, CSS, JS files for UI
 │  └─ home.html
@@ -70,4 +68,5 @@ Models (.keras files) and JSON class label files are not included in the repo.
 Make sure whos-that-pokemon_.mp3 audio file is in the same folder as your frontend HTML.
 
 License
+MIT License. Use this project for fun, education, or personal projects!
 MIT License. Use this project for fun, education, or personal projects!
