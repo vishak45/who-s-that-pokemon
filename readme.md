@@ -1,4 +1,4 @@
-# Who's That Pokémon? 🐱‍👤
+# Who's That Pokémon? 😜
 
 A fun Pokémon image classifier inspired by the classic "Who's That Pokémon?" segment! Upload a Pokémon image and see if the model can guess which Pokémon it is. The reveal includes a dramatic silhouette, spinning card, sound effects, and text-to-speech announcement.
 
@@ -67,6 +67,5 @@ Models (.keras files) and JSON class label files are not included in the repo.
 
 Make sure whos-that-pokemon_.mp3 audio file is in the same folder as your frontend HTML.
 
-License
-MIT License. Use this project for fun, education, or personal projects!
+## License
 MIT License. Use this project for fun, education, or personal projects!
