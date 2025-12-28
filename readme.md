@@ -35,20 +35,23 @@ A fun Pokémon image classifier inspired by the classic "Who's That Pokémon?" s
 git clone https://github.com/yourusername/pokemon-finder.git
 cd pokemon-finder
 Set up Python environment
-
-bash
+```
+```bash
 Copy code
 pip install -r requirements.txt
+```
 Start the backend server
 
-bash
+```bash
 Copy code
 python server.py
+```
 Open frontend/home.html in a browser.
 
 Project Structure
 graphql
 Copy code
+```
 pokemon-finder/
 │
 ├─ frontend/           # HTML, CSS, JS files for UI
@@ -58,6 +61,7 @@ pokemon-finder/
 ├─ requirements.txt    # Python dependencies
 ├─ .gitignore          # Ignored files (models, JSON, env, etc.)
 └─ README.md           # This file
+```
 Notes
 The model is trained on Gen-1 Pokémon only.
 
